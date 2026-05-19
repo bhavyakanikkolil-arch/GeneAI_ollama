@@ -1,0 +1,185 @@
+{
+  "title": "Design and Implementation of Virtual Private Databases for Row-Level Access Control",
+  "aim": "To implement row-level access control based on user identity in order to restrict unauthorized access and protect confidential data.",
+  "theory": "<h4>Introduction</h4><p>A Virtual Private Database (VPD) is a database security mechanism that restricts user access to data at the <b>row level</b> based on the identity of the user. Instead of granting or denying access to an entire table, VPD ensures that users can view or manipulate only those rows of data they are authorized to access. This approach provides fine-grained access control and is especially useful for protecting confidential or sensitive information stored in shared database tables.\r\n\r\n</p><h4>Implementing Security Policies</h4><p>In a database system, VPD is implemented by defining <b>security policies</b> that automatically apply filtering conditions to SQL queries. These policies determine which rows are visible to a user based on factors such as the user’s login identity or role. The policies are created using database commands such as `CREATE POLICY` and are enforced transparently by the database engine.\r\n\r\n</p><h4>Enabling Row Level Security</h4><p>Once a policy is defined, it is attached to a table by enabling <b>Row Level Security (RLS)</b> using commands such as `ENABLE ROW LEVEL SECURITY`. After RLS is enabled, every query executed on the table is internally modified by the database to include the policy condition, ensuring that unauthorized rows are not returned in query results.\r\n\r\n</p><h4>Verifying Access Control</h4><p>To verify the effectiveness of Virtual Private Databases, multiple users are created with different identities. When these users attempt to access the same table, each user sees only the rows permitted by the security policy. This demonstrates how VPD enforces user-aware access control without requiring changes to application code.\r\n\r\n</p><h4>Virtual Private Database for Data Security</h4><p>Overall, Virtual Private Databases play a crucial role in enhancing database security by enforcing row-level data protection. They help maintain data confidentiality and prevent unauthorized disclosure of sensitive information by ensuring that users can access only the data relevant to them.</p>",
+  "procedure": [
+    "Step 1: Administrator Authentication",
+    "1. On the \"Admin Login\" screen, enter the administrator credentials.",
+    "- Username: `admin`",
+    "- Password: `admin123`",
+    "2. Click the Login as Admin button to proceed.",
+    "Step 2: Database Initialization",
+    "1. Click the Create and Populate Employee Table button to populate the database with sample employee records across different departments (HR, Sales, Finance, and IT).",
+    "2. Click Continue to add Row-Level Security (RLS) policies to proceed to security configuration.",
+    "Step 3: Row-Level Security (RLS) Configuration",
+    "1. Read the explanation of Row-Level Security.",
+    "2. Toggle the RLS is DISABLED switch to RLS is ENABLED.",
+    "3. Assign required security policies to different organizational roles by clicking Assign for the required policy:",
+    "- HR Manager: Assign the Full Employee Access policy.",
+    "- HR Assistant: Assign the Basic Information Access policy.",
+    "- Sales Representative: Assign the Personal Record Access policy.",
+    "- IT Staff: Assign the Department Based Access (or Basic Information Access).",
+    "- Finance Analyst: Assign the Department Based Access policy.",
+    "4. Click Confirm Policies & Logout at the bottom of the page.",
+    "Step 4: End-User Login Simulation",
+    "1. On the \"User Login\" screen, select a regular user from the dropdown menu to simulate their permissions (e.g., `bob - sales_rep (Sales)`).",
+    "2. Enter the sample user password: `user123`.",
+    "3. Click Login as User.",
+    "Step 5: Testing Data Access Restrictions",
+    "1. On the \"Test Data Access\" screen, observe the Employee Records table.",
+    "2. Note how the Active Security Policies have modified the database table view.",
+    "- For example, if you logged in as a Sales Representative, you will notice that you can only see your own record (`Personal Record Access` policy).",
+    "- If logged in as an HR Assistant, you will see all records, but the salary information will be masked (`Basic Information Access` policy).",
+    "3. Review the \"Active Security Policies\" section below the table to confirm which policy is currently enforced.",
+    "4. Click the Logout button at the top right to return to Step 4 and test accessibility with a different user role.",
+    "5. To restart the entire database setup, click ↺ Restart Experiment at the bottom of the page."
+  ],
+  "preTest": [
+    {
+      "question": "What is the main objective of a Virtual Private Database (VPD)?",
+      "options": [
+        "To encrypt database files",
+        "To improve database performance",
+        "To restrict data access at the row level based on user identity",
+        "To create database backups"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "VPD ensures users access only authorized rows."
+    },
+    {
+      "question": "At which level does VPD enforce access control?",
+      "options": [
+        "Database level",
+        "Table level",
+        "Row level",
+        "Column level"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "VPD restricts access at the row level."
+    },
+    {
+      "question": "Which SQL command is used to define a row-level security rule in PostgreSQL?",
+      "options": [
+        "CREATE TABLE",
+        "CREATE VIEW",
+        "CREATE POLICY",
+        "CREATE INDEX"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "CREATE POLICY defines row-level security rules in PostgreSQL. Note that Oracle uses different commands (like DBMS_RLS package) for the same purpose."
+    },
+    {
+      "question": "What must be enabled on a table for policies to work?",
+      "options": [
+        "Triggers",
+        "Encryption",
+        "Row Level Security (RLS)",
+        "Indexes"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "RLS must be enabled to enforce policies."
+    },
+    {
+      "question": "In this experiment, how does VPD decide which rows a user can see?",
+      "options": [
+        "Based on query speed",
+        "Based on table size",
+        "Based on the user’s login identity",
+        "Based on database name"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "User identity is used to filter rows."
+    },
+    {
+      "question": "Why are multiple users created in a VPD experiment?",
+      "options": [
+        "To increase system load",
+        "To change table structure",
+        "To test user-based row access control",
+        "To improve performance"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Different users help verify row-level restrictions."
+    }
+  ],
+  "postTest": [
+    {
+      "question": "What happens when Row Level Security (RLS) is enabled on a table with an active policy?",
+      "options": [
+        "Queries are automatically filtered based on the policy",
+        "All users can see all rows",
+        "The table becomes read-only",
+        "The database performance stops"
+      ],
+      "correctAnswerIndex": 0,
+      "explanation": "The database automatically applies policy conditions to queries."
+    },
+    {
+      "question": "If two users query the same table protected by VPD, what is the expected result?",
+      "options": [
+        "Both users see identical data",
+        "Each user sees only the rows allowed by the policy",
+        "Both users get access denied",
+        "Only the admin can see data"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "VPD enforces user-aware row visibility."
+    },
+    {
+      "question": "Which component actually enforces row-level filtering during query execution?",
+      "options": [
+        "Application code",
+        "Client system",
+        "Database engine",
+        "Operating system"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "The database engine applies the security policy."
+    },
+    {
+      "question": "Why does VPD not require changes to application code?",
+      "options": [
+        "Views are mandatory",
+        "Applications automatically encrypt queries",
+        "Users manually filter rows",
+        "Policies are enforced at the database level"
+      ],
+      "correctAnswerIndex": 3,
+      "explanation": "VPD transparently applies policies inside the database."
+    },
+    {
+      "question": "What security benefit does VPD mainly provide?",
+      "options": [
+        "Protection of confidential rows from unauthorized users",
+        "Faster query execution",
+        "Automatic database backups",
+        "Reduced storage usage"
+      ],
+      "correctAnswerIndex": 0,
+      "explanation": "VPD prevents unauthorized access to sensitive rows."
+    },
+    {
+      "question": "After implementing VPD, which action best verifies that it is working correctly?",
+      "options": [
+        "Checking table size",
+        "Creating indexes",
+        "Restarting the database",
+        "Running queries as different users"
+      ],
+      "correctAnswerIndex": 3,
+      "explanation": "Different users should see different rows."
+    }
+  ],
+  "simulation": {
+    "type": "Interactive Web Simulator",
+    "description": "Interactive UI showing RLS configuration and table restriction policies for VPD."
+  },
+  "references": [
+    "Microsoft SQL Server: Row-Level Security. https://learn.microsoft.com/en-us/sql/relational-databases/security/row-level-security",
+    "PostgreSQL: Row Security Policies. https://www.postgresql.org/docs/current/ddl-rowsecurity.html",
+    "NIST Special Publication 800-53: Security and Privacy Controls for Information Systems and Organizations. https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final",
+    "Silberschatz, A., Korth, H. F., & Sudarshan, S. Database System Concepts, 7th Edition. Chapter 4: Intermediate SQL (Section 4.10: Security and Authorization)",
+    "Ramakrishnan, R., & Gehrke, J. Database Management Systems, 3rd Edition. Chapter 21: Security and Authorization",
+    "Elmasri, R., & Navathe, S. B. Fundamentals of Database Systems, 7th Edition. Chapter 30: Database Security"
+  ]
+}

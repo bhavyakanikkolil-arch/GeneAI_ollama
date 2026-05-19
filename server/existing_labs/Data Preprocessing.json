@@ -1,0 +1,152 @@
+{
+  "title": "Data Preprocessing",
+  "aim": "To understand and apply fundamental data preprocessing steps including handling missing values, normalization, and categorical encoding.",
+  "theory": "<h4>Introduction to Data Preprocessing</h4><p>Data preprocessing is a crucial step in the machine learning pipeline that involves cleaning and transforming raw data into an understandable format.</p><h5>1. Handling Missing Values</h5><p>Datasets often have missing data. We can drop them or impute them using mean, median, or mode.</p><h5>2. Normalization</h5><p>Features might have different scales. Normalization brings all numeric features into a similar range, typically [0, 1].</p><h5>3. Categorical Encoding</h5><p>Machine learning models require numerical input. Categorical variables must be converted into numerical format using techniques like One-Hot Encoding or Label Encoding.</p>",
+  "procedure": [
+    "Step 1: Observe the raw dataset containing missing values, unscaled features, and categorical variables.",
+    "Step 2: Click 'Handle Missing Values' to impute the null values with the column mean.",
+    "Step 3: Click 'Normalize Data' to scale the numerical features to a range of 0 to 1.",
+    "Step 4: Click 'Encode Categorical' to convert text labels into numerical representations."
+  ],
+  "preTest": [
+    {
+      "question": "Why is data preprocessing necessary?",
+      "options": [
+        "To make the dataset smaller",
+        "To improve model accuracy and training speed",
+        "To generate new random data",
+        "To increase the number of missing values"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Preprocessing cleans the data, making it easier for algorithms to learn patterns."
+    },
+    {
+      "question": "Which technique is used to bring all features to a similar scale?",
+      "options": [
+        "One-Hot Encoding",
+        "Imputation",
+        "Normalization",
+        "Data Augmentation"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Normalization scales numeric features, typically between 0 and 1."
+    },
+    {
+      "question": "What is the purpose of One-Hot Encoding?",
+      "options": [
+        "To remove missing values",
+        "To scale numerical data",
+        "To convert categorical data into numerical format",
+        "To visualize data"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "One-Hot Encoding converts categorical data into a numerical format suitable for ML algorithms."
+    },
+    {
+      "question": "What does 'imputation' mean in data preprocessing?",
+      "options": [
+        "Deleting rows with missing values",
+        "Filling missing values with a calculated statistic like mean or median",
+        "Converting text to numbers",
+        "Scaling the data"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Imputation is the process of replacing missing data with substituted values."
+    },
+    {
+      "question": "Which of the following is NOT a common data preprocessing step?",
+      "options": [
+        "Handling missing values",
+        "Feature scaling",
+        "Training the neural network",
+        "Encoding categorical variables"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Training the neural network is a modeling step, not preprocessing."
+    },
+    {
+      "question": "If a feature has values ranging from 1 to 1000 and another from 0.1 to 1, what preprocessing step is needed?",
+      "options": [
+        "Normalization / Scaling",
+        "Encoding",
+        "Imputation",
+        "None"
+      ],
+      "correctAnswerIndex": 0,
+      "explanation": "When features have vastly different scales, normalization is required so one feature doesn't dominate."
+    }
+  ],
+  "postTest": [
+    {
+      "question": "After handling missing values with mean imputation, what happens to the dataset's row count?",
+      "options": [
+        "It decreases",
+        "It increases",
+        "It remains the same",
+        "It becomes zero"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Imputation fills in values without deleting any rows, so the row count stays the same."
+    },
+    {
+      "question": "In the simulation, what happens when you click 'Normalize Data'?",
+      "options": [
+        "Missing values disappear",
+        "Values are scaled to a range between 0 and 1",
+        "Text is converted to numbers",
+        "The dataset is deleted"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Normalization scales the numerical values to [0, 1]."
+    },
+    {
+      "question": "Which column in the simulation required Categorical Encoding?",
+      "options": [
+        "Age",
+        "Salary",
+        "Department",
+        "ID"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Department contains text labels (e.g., Sales, HR), which must be encoded."
+    },
+    {
+      "question": "If we had dropped rows with missing values instead of imputing, what would be the disadvantage?",
+      "options": [
+        "We might lose valuable information",
+        "The data would be scaled incorrectly",
+        "We would have to encode twice",
+        "There is no disadvantage"
+      ],
+      "correctAnswerIndex": 0,
+      "explanation": "Dropping rows can lead to a loss of valuable data, especially if the dataset is small."
+    },
+    {
+      "question": "What does the encoded 'Department' column look like after processing?",
+      "options": [
+        "It contains the mean of the department",
+        "It is converted to integers (0, 1, 2...)",
+        "It is removed",
+        "It remains text"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Label encoding converts text categories into integer labels."
+    },
+    {
+      "question": "Why did we not encode the 'Age' column?",
+      "options": [
+        "It has missing values",
+        "It is already numerical",
+        "It is not important",
+        "It is too large"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Age is a numerical feature, so it does not need categorical encoding."
+    }
+  ],
+  "simulation": {
+    "html": "\n<div class=\"dp-dashboard\">\n  <div class=\"dp-header\">\n    <div class=\"dp-title\">\n      <i class=\"fa-solid fa-database\"></i> Data Preprocessing Pipeline\n    </div>\n    <div class=\"dp-stats\">\n      <div class=\"stat-box\">\n        <span class=\"stat-label\">Rows</span>\n        <span class=\"stat-value\" id=\"rowCount\">5</span>\n      </div>\n      <div class=\"stat-box\">\n        <span class=\"stat-label\">Missing</span>\n        <span class=\"stat-value highlight\" id=\"missingCount\">2</span>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"dp-main\">\n    <div class=\"dp-controls\">\n      <h3>Pipeline Steps</h3>\n      <div class=\"step-container\">\n        <button class=\"dp-btn\" id=\"btnMissing\" onclick=\"handleMissing()\">\n          <i class=\"fa-solid fa-wand-magic-sparkles\"></i> 1. Handle Missing Values\n        </button>\n        <div class=\"step-desc\">Fills nulls in Age and Salary with column mean.</div>\n      </div>\n      \n      <div class=\"step-container\">\n        <button class=\"dp-btn disabled\" id=\"btnNormalize\" onclick=\"normalizeData()\" disabled>\n          <i class=\"fa-solid fa-scale-balanced\"></i> 2. Normalize Data\n        </button>\n        <div class=\"step-desc\">Scales Age and Salary to [0, 1] range.</div>\n      </div>\n\n      <div class=\"step-container\">\n        <button class=\"dp-btn disabled\" id=\"btnEncode\" onclick=\"encodeData()\" disabled>\n          <i class=\"fa-solid fa-tags\"></i> 3. Encode Categorical\n        </button>\n        <div class=\"step-desc\">Converts Department labels to numeric codes.</div>\n      </div>\n\n      <div class=\"step-container\">\n        <button class=\"dp-btn-reset\" id=\"btnReset\" onclick=\"resetData()\">\n          <i class=\"fa-solid fa-rotate-right\"></i> Reset Pipeline\n        </button>\n      </div>\n    </div>\n\n    <div class=\"dp-view\">\n      <h3>Dataset View</h3>\n      <div class=\"table-container\">\n        <table id=\"dataTable\">\n          <thead>\n            <tr>\n              <th>ID</th>\n              <th>Age</th>\n              <th>Salary ($)</th>\n              <th>Department</th>\n            </tr>\n          </thead>\n          <tbody id=\"tableBody\">\n            <!-- Data will be injected here -->\n          </tbody>\n        </table>\n      </div>\n      <div class=\"chart-container\">\n        <canvas id=\"dataChart\"></canvas>\n      </div>\n    </div>\n  </div>\n</div>\n",
+    "css": "\n.dp-dashboard {\n  display: flex;\n  flex-direction: column;\n  gap: 20px;\n  height: 100%;\n  color: var(--text-color);\n  animation: fadeIn 0.5s ease-in-out;\n}\n@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }\n\n.dp-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background: linear-gradient(135deg, #1e293b, #0f172a);\n  padding: 20px 30px;\n  border-radius: 12px;\n  border: 1px solid var(--border);\n  box-shadow: 0 4px 15px rgba(0,0,0,0.2);\n}\n.dp-title {\n  font-size: 1.5rem;\n  font-weight: 600;\n  color: #38bdf8;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.dp-stats {\n  display: flex;\n  gap: 20px;\n}\n.stat-box {\n  background: rgba(255,255,255,0.05);\n  padding: 10px 20px;\n  border-radius: 8px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  border: 1px solid rgba(255,255,255,0.1);\n}\n.stat-label { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }\n.stat-value { font-size: 1.5rem; font-weight: 700; color: #f8fafc; }\n.stat-value.highlight { color: #f43f5e; }\n\n.dp-main {\n  display: grid;\n  grid-template-columns: 300px 1fr;\n  gap: 20px;\n  flex: 1;\n}\n\n.dp-controls {\n  background: var(--surface);\n  padding: 24px;\n  border-radius: 12px;\n  border: 1px solid var(--border);\n  display: flex;\n  flex-direction: column;\n  gap: 15px;\n}\n.dp-controls h3 { margin-top: 0; color: #e2e8f0; border-bottom: 1px solid var(--border); padding-bottom: 10px; }\n\n.step-container { margin-bottom: 10px; }\n.step-desc { font-size: 0.8rem; color: #94a3b8; margin-top: 5px; padding-left: 5px; }\n\n.dp-btn {\n  width: 100%;\n  text-align: left;\n  background: #2563eb;\n  padding: 12px 15px;\n  font-size: 1rem;\n  border-radius: 8px;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  box-shadow: 0 4px 6px rgba(0,0,0,0.1);\n}\n.dp-btn:hover:not(:disabled) { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(37,99,235,0.2); }\n.dp-btn:disabled { background: #334155; color: #64748b; cursor: not-allowed; box-shadow: none; transform: none; }\n\n.dp-btn-reset {\n  width: 100%;\n  background: transparent;\n  border: 1px solid #f43f5e;\n  color: #f43f5e;\n  padding: 10px;\n  border-radius: 8px;\n  cursor: pointer;\n  margin-top: 20px;\n  transition: all 0.2s;\n}\n.dp-btn-reset:hover { background: #f43f5e; color: white; }\n\n.dp-view {\n  background: var(--surface);\n  padding: 24px;\n  border-radius: 12px;\n  border: 1px solid var(--border);\n  display: flex;\n  flex-direction: column;\n  gap: 20px;\n}\n.dp-view h3 { margin-top: 0; color: #e2e8f0; border-bottom: 1px solid var(--border); padding-bottom: 10px; }\n\n.table-container {\n  overflow-x: auto;\n  border-radius: 8px;\n  border: 1px solid var(--border);\n}\ntable { margin-bottom: 0; }\nth { background: #0f172a; color: #cbd5e1; }\ntd { color: #f8fafc; font-family: monospace; font-size: 1.1rem; }\ntd.null-val { color: #f43f5e; font-weight: bold; font-style: italic; }\ntd.updated { color: #10b981; animation: flashGreen 1s ease-out; }\n@keyframes flashGreen { 0% { background-color: rgba(16,185,129,0.5); } 100% { background-color: transparent; } }\n\n.chart-container {\n  height: 300px;\n  width: 100%;\n  margin-top: 20px;\n  background: rgba(15,23,42,0.5);\n  border-radius: 8px;\n  padding: 15px;\n}\n",
+    "js": "\nconst initialData = [\n  { id: 1, age: 25, salary: 50000, dept: 'Sales' },\n  { id: 2, age: null, salary: 60000, dept: 'HR' },\n  { id: 3, age: 30, salary: 55000, dept: 'IT' },\n  { id: 4, age: 40, salary: null, dept: 'Sales' },\n  { id: 5, age: 35, salary: 80000, dept: 'IT' }\n];\n\nlet currentData = JSON.parse(JSON.stringify(initialData));\nlet step1Done = false;\nlet step2Done = false;\nlet step3Done = false;\nlet chartInstance = null;\n\nfunction renderTable(highlightField = null) {\n  const tbody = document.getElementById('tableBody');\n  tbody.innerHTML = '';\n  let missing = 0;\n  \n  currentData.forEach((row, i) => {\n    const tr = document.createElement('tr');\n    \n    // ID\n    tr.innerHTML += `<td>${row.id}</td>`;\n    \n    // Age\n    if (row.age === null) {\n      tr.innerHTML += `<td class=\"null-val\">NaN</td>`;\n      missing++;\n    } else {\n      const isUpdated = highlightField === 'age' && initialData[i].age !== row.age;\n      tr.innerHTML += `<td class=\"${isUpdated ? 'updated' : ''}\">${typeof row.age === 'number' && !Number.isInteger(row.age) ? row.age.toFixed(2) : row.age}</td>`;\n    }\n    \n    // Salary\n    if (row.salary === null) {\n      tr.innerHTML += `<td class=\"null-val\">NaN</td>`;\n      missing++;\n    } else {\n      const isUpdated = highlightField === 'salary' && initialData[i].salary !== row.salary;\n      tr.innerHTML += `<td class=\"${isUpdated ? 'updated' : ''}\">${typeof row.salary === 'number' && !Number.isInteger(row.salary) && row.salary < 10 ? row.salary.toFixed(3) : row.salary}</td>`;\n    }\n    \n    // Dept\n    const isUpdated = highlightField === 'dept' && initialData[i].dept !== row.dept;\n    tr.innerHTML += `<td class=\"${isUpdated ? 'updated' : ''}\">${row.dept}</td>`;\n    \n    tbody.appendChild(tr);\n  });\n  \n  document.getElementById('missingCount').innerText = missing;\n  if (missing === 0) {\n    document.getElementById('missingCount').classList.remove('highlight');\n    document.getElementById('missingCount').style.color = '#10b981';\n  } else {\n    document.getElementById('missingCount').classList.add('highlight');\n    document.getElementById('missingCount').style.color = '';\n  }\n  \n  updateChart();\n}\n\nfunction handleMissing() {\n  let ageSum = 0, ageCount = 0;\n  let salSum = 0, salCount = 0;\n  \n  currentData.forEach(r => {\n    if (r.age !== null) { ageSum += r.age; ageCount++; }\n    if (r.salary !== null) { salSum += r.salary; salCount++; }\n  });\n  \n  const ageMean = Math.round(ageSum / ageCount);\n  const salMean = Math.round(salSum / salCount);\n  \n  currentData.forEach(r => {\n    if (r.age === null) r.age = ageMean;\n    if (r.salary === null) r.salary = salMean;\n  });\n  \n  step1Done = true;\n  document.getElementById('btnMissing').disabled = true;\n  document.getElementById('btnMissing').innerHTML = '<i class=\"fa-solid fa-check\"></i> 1. Missing Values Handled';\n  document.getElementById('btnNormalize').disabled = false;\n  \n  renderTable('age'); // or salary, both get highlighted if changed\n}\n\nfunction normalizeData() {\n  const ages = currentData.map(r => r.age);\n  const sals = currentData.map(r => r.salary);\n  const minAge = Math.min(...ages), maxAge = Math.max(...ages);\n  const minSal = Math.min(...sals), maxSal = Math.max(...sals);\n  \n  currentData.forEach(r => {\n    r.age = (r.age - minAge) / (maxAge - minAge);\n    r.salary = (r.salary - minSal) / (maxSal - minSal);\n  });\n  \n  step2Done = true;\n  document.getElementById('btnNormalize').disabled = true;\n  document.getElementById('btnNormalize').innerHTML = '<i class=\"fa-solid fa-check\"></i> 2. Data Normalized';\n  document.getElementById('btnEncode').disabled = false;\n  \n  renderTable('salary');\n}\n\nfunction encodeData() {\n  const deptMap = { 'Sales': 0, 'HR': 1, 'IT': 2 };\n  \n  currentData.forEach(r => {\n    r.dept = deptMap[r.dept];\n  });\n  \n  step3Done = true;\n  document.getElementById('btnEncode').disabled = true;\n  document.getElementById('btnEncode').innerHTML = '<i class=\"fa-solid fa-check\"></i> 3. Categorical Encoded';\n  \n  renderTable('dept');\n}\n\nfunction resetData() {\n  currentData = JSON.parse(JSON.stringify(initialData));\n  step1Done = false;\n  step2Done = false;\n  step3Done = false;\n  \n  const btnM = document.getElementById('btnMissing');\n  btnM.disabled = false;\n  btnM.innerHTML = '<i class=\"fa-solid fa-wand-magic-sparkles\"></i> 1. Handle Missing Values';\n  \n  const btnN = document.getElementById('btnNormalize');\n  btnN.disabled = true;\n  btnN.innerHTML = '<i class=\"fa-solid fa-scale-balanced\"></i> 2. Normalize Data';\n  \n  const btnE = document.getElementById('btnEncode');\n  btnE.disabled = true;\n  btnE.innerHTML = '<i class=\"fa-solid fa-tags\"></i> 3. Encode Categorical';\n  \n  renderTable();\n}\n\nfunction updateChart() {\n  const ctx = document.getElementById('dataChart').getContext('2d');\n  \n  const labels = currentData.map(r => 'ID ' + r.id);\n  const ages = currentData.map(r => r.age === null ? 0 : r.age);\n  \n  // If normalized, salaries are small, if not they are huge. We scale salary for visual purposes if not normalized\n  const sals = currentData.map(r => {\n    if (r.salary === null) return 0;\n    return step2Done ? r.salary : r.salary / 1000; // divide by 1k for visual scale before norm\n  });\n\n  if (chartInstance) {\n    chartInstance.destroy();\n  }\n\n  chartInstance = new Chart(ctx, {\n    type: 'bar',\n    data: {\n      labels: labels,\n      datasets: [\n        {\n          label: step2Done ? 'Normalized Age' : 'Age',\n          data: ages,\n          backgroundColor: 'rgba(56, 189, 248, 0.7)',\n          borderColor: 'rgba(56, 189, 248, 1)',\n          borderWidth: 1\n        },\n        {\n          label: step2Done ? 'Normalized Salary' : 'Salary (in thousands)',\n          data: sals,\n          backgroundColor: 'rgba(16, 185, 129, 0.7)',\n          borderColor: 'rgba(16, 185, 129, 1)',\n          borderWidth: 1\n        }\n      ]\n    },\n    options: {\n      responsive: true,\n      maintainAspectRatio: false,\n      plugins: {\n        legend: { labels: { color: '#e2e8f0' } }\n      },\n      scales: {\n        y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.1)' } },\n        x: { ticks: { color: '#94a3b8' }, grid: { display: false } }\n      }\n    }\n  });\n}\n\n// Initial render\nsetTimeout(renderTable, 100);\n"
+  }
+}

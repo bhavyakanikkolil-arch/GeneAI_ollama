@@ -1,0 +1,37 @@
+{
+  "title": "Ohm's Law: Exploring Resistance",
+  "aim": "Understand Ohm's Law and how it relates to circuit analysis, by creating a simple circuit model.",
+  "theory": "<h4>What is Ohm&#39;s Law?</h4><p>The relationship between voltage, current, and resistance in electric circuits was first described by Professor Georg Simon Ohm in the 19th century. <b>This fundamental principle</b> states that in a linear circuit, the voltage (V) across two points is equal to the product of the current (I) and resistance (R), as modeled by the equation V=IR.</p><h4>Why Ohm&#39;s Law is Important</h4><p>Ohm&#39;s Law provides a straightforward method for designers to predict the performance of electric circuits, essential for developing safe, reliable, and efficient systems. This understanding helps ensure that electrical systems operate within predetermined limits, minimizing risks associated with electrical shocks or fires.</p>",
+  "procedure": [
+    "Step 1: Connect the voltage source to the circuit using a virtual wire."
+  ],
+  "preTest": [
+    {
+      "question": "What is the unit of measurement for current in the International System of Units (SI)?",
+      "options": ["Ampere", "Volt", "Watt", "Ohm"],
+      "correctAnswerIndex": 0,
+      "explanation": "The correct answer is Ampere."
+    }
+  ],
+  "postTest": [
+    {
+      "question": "What is the relationship between voltage, current, and resistance described by Ohm&#39;s Law?",
+      "options": ["V = I/R", "I = V/R", "R = V/I"],
+      "correctAnswerIndex": 0,
+      "explanation": "The correct answer is V = I/R."
+    }
+  ],
+  "simulation": {
+    "html": "<div id=&quot;resistance-slider&quot;&gt;(<!-- Slider code --)]<script type=&quot;text/javascript&quot;&gt;  //Slider JavaScript logic</script>",
+    "css": "#resistance-slider { width: 300px; height: 30px; border-radius: 10px; }",
+    "js": "var resistance = 0.01; function updateResistance(val) { document.getElementById(&quot;resistance-value&quot;).innerHTML = val + ' ohms'; }"
+  },
+  "references": [
+    {
+      "Author(s)": ["Georg Simon Ohm"],
+      "Title of resource": "The Galvanic Circuit Theory",
+      "Publisher/URL": "Journal of the Franklin Institute, 1842",
+      "Year": "1842"
+    }
+  ]
+}

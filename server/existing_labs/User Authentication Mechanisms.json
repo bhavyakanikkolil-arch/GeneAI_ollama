@@ -1,0 +1,179 @@
+{
+  "title": "Design and Implementation of User Authentication Mechanisms",
+  "aim": "The objective of this experiment is to understand how database systems authenticate users. The outcome of this experiment lies in the ability to configure and manage database user authentication mechanisms.",
+  "theory": "<h4>1. Introduction</h4><p>In database security, two foundational concepts work hand-in-hand to protect data: <b>Authentication</b> and <b>Authorization</b>.</p><ul><li><b>Authentication (AuthN):</b> The process of verifying a user's identity. It answers the question, <i>\"Are you who you say you are?\"</i> Authentication acts as the primary gateway, requiring credentials (like a username and password) to allow entry into the system.</li><li><b>Authorization (AuthZ):</b> The process of determining what actions a verified user is permitted to perform. It answers the question, <i>\"What are you allowed to do?\"</i> Once a user is authenticated, authorization ensures they can only access the data or commands they have been granted permission to use.</li></ul><p>This experiment focuses <b>exclusively on Authentication</b>. By rigorously verifying identities, the system prevents unauthorized entry. We will explore the configuration and management of user accounts and password policies to ensure only legitimate users can access the database system.</p><h4>2. Password Policies</h4><h5>2.1 User Account Management</h5><p>The first step in securing a database is creating specific user accounts. Unlike generic accounts, individual accounts allow for precise tracking and accountability.</p><ul><li><b>Identification:</b> Every user is assigned a unique username.</li><li><b>Verification:</b> Every account is secured with a password or another verification method to confirm identity.</li></ul><h5>2.2 Security and Password Policies</h5><p>Creating an account is only half the battle. To prevent unauthorized access via stolen or guessed credentials, database systems enforce several security policies:</p><ul><li><b>Password Complexity:</b> Ensures passwords are not easily guessable by requiring a mix of characters (uppercase, lowercase, numbers, and symbols).</li><li><b>Password Expiry:</b> Regularly forcing users to update their passwords reduces the window of opportunity for attackers who might have stolen old credentials.</li><li><b>Account Lock Policies:</b> Automatically disabling an account after a certain number of failed login attempts protects against \"brute-force\" attacks.</li></ul><h5>2.3 External and Multi-Factor Authentication</h5><p>Beyond local passwords, modern databases support external and more secure authentication mechanisms:</p><ul><li><b>External Services (LDAP/Active Directory):</b> Centralizes user management by allowing the database to verify identities against a corporate directory service.</li><li><b>Multi-Factor Authentication (MFA):</b> Requires two or more pieces of evidence (e.g., a password and a mobile code) to verify identity.</li><li><b>Certificate-Based Authentication:</b> Uses digital certificates (SSL/TLS) to verify both the client and the server identities.</li></ul><h4>3. Understanding Login Behavior</h4><p>A critical part of managing a database is observing how it reacts during different authentication scenarios:</p><ul><li><b>Successful Authentication:</b> When correct credentials are provided, a session is established.</li><li><b>Failed Attempt:</b> If incorrect credentials are used, the database denies entry and logs the attempt.</li><li><b>Behavioral Observation:</b> Analyzing system responses to incorrect logins—such as delay increases or locking triggers—is essential for recognizing and mitigating potential security threats.</li></ul>",
+  "procedure": [
+    "Step 1: Configure Security Policies",
+    "1. Navigate to the Registration & Security Policies tab.",
+    "2. View the detailed configuration of advanced policies.",
+    "3. Set minimum password length, required characters (uppercase, numbers, etc.), and account lockout rules (e.g., 3 attempts), then apply these policies to update the system rules.",
+    "Step 2: Register a New User",
+    "1. Under the Registration sub-tab, enter a unique Username for your account.",
+    "2. Provide an optional Email address.",
+    "3. Type a password while monitoring the Password Strength meter. It must match the current security policies.",
+    "4. Re-type the password in the Confirm Password field.",
+    "5. Click Register as user. You will see a success message if the inputs are valid.",
+    "Step 3: Start the Authentication Simulation",
+    "1. Switch to the Authentication & DB Visualization tab.",
+    "2. The authentication process involves 8 steps:",
+    "   - Login Request: User credentials are submitted to the server.",
+    "   - Input Validation: The system checks for empty fields or invalid formats.",
+    "   - User Lookup: A database query (SELECT) is run to find the user.",
+    "   - Status Check: Verifies if the account is active or locked.",
+    "   - Password Hashing: The entered plaintext password is hashed.",
+    "   - Password Verification: The new hash is compared against the stored hash.",
+    "   - Session Creation: On success, a secure session token is generated.",
+    "   - Access Granted: The user is redirected to the dashboard.",
+    "Step 4: Testing Scenarios",
+    "1. Successful Login: Enter the correct credentials for your registered user and observe the access being granted.",
+    "2. Non-Existent User: Enter a username that hasn't been registered. Observe the failure at Step 3 (User Lookup).",
+    "3. Incorrect Password: Use a valid username but the wrong password. Observe the failure at Step 6 (Password Verification) and note the Failed Attempts counter.",
+    "4. Account Locked: Repeat incorrect logins until the maximum attempts are reached. Verify that the account status changes to Locked."
+  ],
+  "preTest": [
+    {
+      "question": "What is the primary purpose of user authentication in database systems?",
+      "options": [
+        "To store large amounts of data",
+        "To improve database performance",
+        "To verify the identity of users before granting access",
+        "To encrypt database tables"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Authentication ensures only authorized users can access the database."
+    },
+    {
+      "question": "Which credentials are commonly used for user authentication in a DBMS?",
+      "options": [
+        "IP address and port number",
+        "Database name and table name",
+        "Username and password",
+        "File name and file size"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Username and password are standard authentication credentials."
+    },
+    {
+      "question": "When does a database system grant access to a user?",
+      "options": [
+        "When the username is correct",
+        "When the password is strong",
+        "When credentials are correct and the account is active",
+        "When the user requests access"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Access is granted only if credentials are valid and the account is active."
+    },
+    {
+      "question": "What is the purpose of password complexity policies?",
+      "options": [
+        "To make passwords easier to remember",
+        "To reduce storage space",
+        "To create strong passwords and improve security",
+        "To allow unlimited login attempts"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Complex passwords reduce the risk of unauthorized access."
+    },
+    {
+      "question": "What happens when a user enters incorrect login credentials multiple times?",
+      "options": [
+        "The database deletes the user account",
+        "The database shuts down",
+        "The account may be locked",
+        "The password is displayed"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Account lock mechanisms prevent repeated unauthorized attempts."
+    },
+    {
+      "question": "Why are incorrect login attempts performed during this experiment?",
+      "options": [
+        "To change the database schema",
+        "To test backup mechanisms",
+        "To observe authentication errors and account lock behavior",
+        "To increase database speed"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Incorrect attempts help understand authentication responses."
+    }
+  ],
+  "postTest": [
+    {
+      "question": "Why is user authentication considered the first line of defense in database security?",
+      "options": [
+        "It verifies user identity before allowing access",
+        "It improves database speed",
+        "It automatically encrypts all data",
+        "It manages database backups"
+      ],
+      "correctAnswerIndex": 0,
+      "explanation": "Authentication prevents unauthorized users from accessing the database."
+    },
+    {
+      "question": "What happens if a user provides correct credentials but the account is locked?",
+      "options": [
+        "Access is granted immediately",
+        "Access is denied despite correct credentials",
+        "The database ignores the lock",
+        "The password is reset automatically"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "A locked account prevents access even with correct credentials."
+    },
+    {
+      "question": "How do password expiry policies improve database security?",
+      "options": [
+        "By reducing database size",
+        "By allowing unlimited login attempts",
+        "By forcing users to change passwords periodically",
+        "By disabling old user accounts"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Regular password changes reduce long-term password misuse."
+    },
+    {
+      "question": "Which behavior indicates that an account lock policy is functioning correctly?",
+      "options": [
+        "Successful login after multiple wrong attempts",
+        "Database shutdown after login failure",
+        "Password is displayed to the user",
+        "User account becomes inaccessible after repeated failures"
+      ],
+      "correctAnswerIndex": 3,
+      "explanation": "Account lock policies restrict access after repeated failures."
+    },
+    {
+      "question": "Why is observing error messages during failed login attempts important?",
+      "options": [
+        "To understand how authentication mechanisms respond",
+        "To increase login speed",
+        "To change database tables",
+        "To bypass security controls"
+      ],
+      "correctAnswerIndex": 0,
+      "explanation": "They help understand authentication behavior."
+    },
+    {
+      "question": "After completing this experiment, what skill is primarily achieved?",
+      "options": [
+        "Designing database schemas",
+        "Optimizing query performance",
+        "Developing web applications",
+        "Configuring and managing database user authentication"
+      ],
+      "correctAnswerIndex": 3,
+      "explanation": "The experiment focuses on authentication configuration and management."
+    }
+  ],
+  "simulation": {
+    "type": "Interactive Web Simulator",
+    "description": "Interactive UI showing Registration, Security Policies, and Authentication Flow.",
+    "url": "/simulations/exp-user-authentication-mechanisms-amrt/index.html"
+  },
+  "references": [
+    "Stallings, W. (2014). Cryptography and Network Security: Principles and Practice.",
+    "Pfleeger, C. P., & Pfleeger, S. L. (2006). Security in Computing.",
+    "Elmasri, R., & Navathe, S. B. Fundamentals of Database Systems, 7th Edition."
+  ]
+}

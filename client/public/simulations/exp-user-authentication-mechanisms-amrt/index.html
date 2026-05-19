@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication Mechanisms</title>
+    <!-- Use Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1><i class="fa-solid fa-shield-halved"></i> User Authentication Mechanisms</h1>
+            <div class="header-actions">
+                <button id="resetBtn" class="btn btn-outline"><i class="fa-solid fa-rotate-right"></i> Reset Simulation</button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="app-tabs">
+            <button class="tab-btn active" data-tab="registration">
+                <i class="fa-solid fa-user-plus"></i> Registration & Security Policies
+            </button>
+            <button class="tab-btn" data-tab="authentication">
+                <i class="fa-solid fa-right-to-bracket"></i> Authentication & DB Visualization
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="app-main">
+            <!-- Registration Tab Content -->
+            <section id="registration" class="tab-content active">
+                <div class="two-col-layout">
+                    <!-- Policies Configuration Panel -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-sliders"></i> Security Policies</h2>
+                            <p class="panel-subtitle">Configure the database security rules.</p>
+                        </div>
+                        <div class="panel-body">
+                            <form id="policiesForm" class="form">
+                                <div class="form-group">
+                                    <label for="minLen">Minimum Password Length</label>
+                                    <input type="number" id="minLen" value="8" min="4" max="32">
+                                </div>
+                                <div class="form-group">
+                                    <label>Required Characters</label>
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" id="reqUpper" checked> Uppercase (A-Z)</label>
+                                        <label><input type="checkbox" id="reqLower" checked> Lowercase (a-z)</label>
+                                        <label><input type="checkbox" id="reqNum" checked> Numbers (0-9)</label>
+                                        <label><input type="checkbox" id="reqSym" checked> Symbols (!@#$%^&*)</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lockAttempts">Account Lockout (Failed Attempts)</label>
+                                    <input type="number" id="lockAttempts" value="3" min="1" max="10">
+                                </div>
+                                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Apply Policies</button>
+                            </form>
+                            <div id="policyMsg" class="alert success hidden">Policies Updated!</div>
+                        </div>
+                    </div>
+
+                    <!-- Registration Form Panel -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-address-card"></i> Register User</h2>
+                            <p class="panel-subtitle">Create an account compliant with policies.</p>
+                        </div>
+                        <div class="panel-body">
+                            <form id="registerForm" class="form">
+                                <div class="form-group">
+                                    <label for="regUser">Username</label>
+                                    <input type="text" id="regUser" placeholder="Enter username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="regEmail">Email (Optional)</label>
+                                    <input type="email" id="regEmail" placeholder="user@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="regPass">Password</label>
+                                    <input type="password" id="regPass" placeholder="Enter password" required>
+                                    
+                                    <!-- Password Strength Meter -->
+                                    <div class="strength-meter-container">
+                                        <div class="strength-meter">
+                                            <div id="strengthBar" class="strength-bar"></div>
+                                        </div>
+                                        <div id="strengthLabel" class="strength-label">Strength: Poor</div>
+                                    </div>
+                                    <!-- Password Requirements Feedback -->
+                                    <ul id="passReqs" class="password-reqs">
+                                        <!-- Dynamically generated based on policies -->
+                                    </ul>
+                                </div>
+                                <div class="form-group">
+                                    <label for="regConfirm">Confirm Password</label>
+                                    <input type="password" id="regConfirm" placeholder="Re-type password" required>
+                                </div>
+                                <button type="submit" id="regBtn" class="btn btn-success" disabled>Register as user</button>
+                            </form>
+                            <div id="regMsg" class="alert hidden"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Authentication Tab Content -->
+            <section id="authentication" class="tab-content">
+                <div class="two-col-layout auth-layout">
+                    <!-- Login Panel -->
+                    <div class="panel login-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-lock"></i> Test Authentication</h2>
+                            <p class="panel-subtitle">Simulate a user login attempt.</p>
+                        </div>
+                        <div class="panel-body">
+                            <form id="loginForm" class="form">
+                                <div class="form-group">
+                                    <label for="loginUser">Username</label>
+                                    <input type="text" id="loginUser" placeholder="Username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loginPass">Password</label>
+                                    <input type="password" id="loginPass" placeholder="Password" required>
+                                </div>
+                                <button type="submit" id="loginBtn" class="btn btn-primary"><i class="fa-solid fa-play"></i> Start Simulation</button>
+                            </form>
+
+                            <!-- User Database View -->
+                            <div class="db-view">
+                                <h3><i class="fa-solid fa-database"></i> Database Records</h3>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Status</th>
+                                            <th>Failed Attempts</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dbRecords">
+                                        <tr><td colspan="3" class="text-center text-muted">No users registered yet.</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visualization Panel -->
+                    <div class="panel vis-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-diagram-project"></i> Verification Steps</h2>
+                            <p class="panel-subtitle">Real-time authentication process flow.</p>
+                        </div>
+                        <div class="panel-body">
+                            <div class="steps-container">
+                                <div class="step" id="step1">
+                                    <div class="step-icon"><i class="fa-solid fa-arrow-right-to-bracket"></i></div>
+                                    <div class="step-content">
+                                        <h4>1. Login Request</h4>
+                                        <p>Credentials submitted.</p>
+                                    </div>
+                                    <div class="step-status"></div>
+                                </div>
+                                <div class="step-connector"></div>
+                                <div class="step" id="step2">
+                                    <div class="step-icon"><i class="fa-solid fa-spell-check"></i></div>
+                                    <div class="step-content">
+                                        <h4>2. Input Validation</h4>
+                                        <p>Checking formats.</p>
+                                    </div>
+                                    <div class="step-status"></div>
+                                </div>
+                                <div class="step-connector"></div>
+                                <div class="step" id="step3">
+                                    <div class="step-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                                    <div class="step-content">
+                                        <h4>3. User Lookup</h4>
+                                        <p>SELECT * FROM users...</p>
+                                    </div>
+                                    <div class="step-status"></div>
+                                </div>
+                                <div class="step-connector"></div>
+                                <div class="step" id="step4">
+                                    <div class="step-icon"><i class="fa-solid fa-user-lock"></i></div>
+                                    <div class="step-content">
+                                        <h4>4. Status Check</h4>
+                                        <p>Checking if account is active.</p>
+                                    </div>
+                                    <div class="step-status"></div>
+                                </div>
+                                <div class="step-connector"></div>
+                                <div class="step" id="step5">
+                                    <div class="step-icon"><i class="fa-solid fa-hashtag"></i></div>
+                                    <div class="step-content">
+                                        <h4>5. Password Hashing</h4>
+                                        <p>SHA-256 computation.</p>
+                                    </div>
+                                    <div class="step-status"></div>
+                                </div>
+                                <div class="step-connector"></div>
+                                <div class="step" id="step6">
+                                    <div class="step-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                                    <div class="step-content">
+                                        <h4>6. Password Verification</h4>
+                                        <p>Comparing hashes.</p>
+                                    </div>
+                                    <div class="step-status"></div>
+                                </div>
+                                <div class="step-connector"></div>
+                                <div class="step" id="step7">
+                                    <div class="step-icon"><i class="fa-solid fa-ticket"></i></div>
+                                    <div class="step-content">
+                                        <h4>7. Session Creation</h4>
+                                        <p>Generating token.</p>
+                                    </div>
+                                    <div class="step-status"></div>
+                                </div>
+                                <div class="step-connector"></div>
+                                <div class="step" id="step8">
+                                    <div class="step-icon"><i class="fa-solid fa-door-open"></i></div>
+                                    <div class="step-content">
+                                        <h4>8. Access Granted</h4>
+                                        <p>Redirecting to dashboard.</p>
+                                    </div>
+                                    <div class="step-status"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Final Result Overlay -->
+                            <div id="authResult" class="auth-result hidden">
+                                <div class="result-icon"></div>
+                                <h3 class="result-title"></h3>
+                                <p class="result-desc"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>
